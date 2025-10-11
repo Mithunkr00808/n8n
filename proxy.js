@@ -48,14 +48,13 @@ app.post('/upload', async (req, res) => {
   try {
     const response = await axios({
       method: req.body.method || 'GET',
-      url: `https://graph.facebook.com/${req.body.endpoint}/media_publish`,
+      url: `https://graph.facebook.com/${req.body.endpoint}/media_publish?creation_id=${req.body.content}`,
       headers: {
         Authorization: `Bearer ${req.body.token}`,
         'Content-Type': 'application/json',
-      },
-      data: req.body.payload || {},
+      }
+
     });
-    container_id = response.data;
     res.json(response.data);
   } catch (err) {
     res.status(err.response?.status || 500).json({ error: err.message });
