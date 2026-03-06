@@ -61,4 +61,22 @@ app.post('/upload', async (req, res) => {
   }
 });
 
+app.post('/wmessage', async (req, res) => {
+  try {
+    const response = await axios({
+      method: req.body.method || 'POST',
+      url: `https://graph.facebook.com/v22.0/984911541378933/messages`,
+      headers: {
+        Authorization: `Bearer ${req.query.token}`,
+        'Content-Type': 'application/json',
+      },
+      data: req.body.payload || {},
+    });
+    container_id = response.data;
+    res.json(response.data);
+  } catch (err) {
+    res.status(err.response?.status || 500).json({ error: err.message });
+  }
+});
+
 app.listen(3000, () => console.log('Proxy running on port 3000'));
