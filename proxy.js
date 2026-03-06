@@ -65,7 +65,7 @@ app.post('/wmessage', async (req, res) => {
   try {
     const response = await axios({
       method: req.body.method || 'POST',
-      url: `https://graph.facebook.com/v22.0/984911541378933/messages`,
+      url: `https://graph.facebook.com/v22.0/${req.query.id}/messages`,
       headers: {
         Authorization: `Bearer ${req.query.token}`,
         'Content-Type': 'application/json',
